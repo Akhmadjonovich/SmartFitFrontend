@@ -7,8 +7,8 @@ export default function TryOn() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Render backend URL
-  const BACKEND_URL = "https://smartfit3.onrender.com/";
+  // Render backend URL (OXIRIDA / QO‘YMAYMIZ)
+  const BACKEND_URL = "https://smartfit3.onrender.com";
 
   const handleSubmit = async () => {
     if (!person || !cloth) {
@@ -21,17 +21,17 @@ export default function TryOn() {
     formData.append("cloth", cloth);
 
     setLoading(true);
-    try {
-      const res = await axios.post(`${BACKEND_URL}/try-on`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
 
-      // Backend { url: "..." } yuboradi
-      setResult(res.data.url);
+    try {
+      const res = await axios.post(
+        `${BACKEND_URL}/api/try-on`, // ✅ TO‘G‘RI ROUTE
+        formData
+      );
+
+      // ✅ Backend image qaytaryapti
+      setResult(res.data.image);
     } catch (error) {
-      console.error(error);
+      console.error("TRY ON ERROR:", error);
       alert("Xatolik yuz berdi");
     } finally {
       setLoading(false);
@@ -61,7 +61,8 @@ export default function TryOn() {
 
         <button
           onClick={handleSubmit}
-          className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
+          disabled={loading}
+          className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition disabled:opacity-60"
         >
           {loading ? "AI ishlayapti..." : "Kiydirish"}
         </button>
