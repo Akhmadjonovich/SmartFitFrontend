@@ -18,7 +18,7 @@ export default function TryOn() {
     // 3 soniyaga loading
     setTimeout(() => {
       // oldindan tayyor rasmni chiqarish
-      setResult("/user.jpg"); // public/images/fake-result.jpg
+      setResult("/user2.jpg"); // public/images/fake-result.jpg
       setLoading(false);
     }, 3000);
   };
